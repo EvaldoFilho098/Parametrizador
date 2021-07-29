@@ -76,7 +76,6 @@ void Netplwiz(int op){
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 	}
-	
 }
 
 void Log_Eventos(int op){
@@ -173,12 +172,11 @@ void Politicas_Senha(int op){
 			}
 	 	}
 	}
-	 	
 }
 
 void Horario_Internet(int op){
 	
-	int verificacao = 0;
+	int verificacao = 0,t=0;
 	
 	if( op == 0){
 		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
@@ -197,9 +195,16 @@ void Horario_Internet(int op){
 		printf("- -  DESFAZENDO CONFIGURACOES DE HORARIO DA INTERNET - - \n");
 		verificacao += system("powershell.exe w32tm /config /syncfromflags:manual /manualpeerlist:time.windows.com");
 	}
-	
-	verificacao += system("powershell.exe w32tm /config /update");
-	verificacao += system("powershell.exe w32tm /resync");
+	verificacao += system("w32tm /config /update");
+	t = 1;
+	do{
+		verificacao += system("w32tm /resync");
+		if (verificacao == 0)
+			t=3;
+		else
+			t++;
+		
+	}while(t != 3);
 	
 	if(verificacao != 0){
 		printf(" - - VERIFICAR CONFIGURACOES DE HORARIO DA INTERNET! - - \n");
@@ -255,7 +260,7 @@ void Protecao_Tela(int op){
 void Usuarios(){
 	
 	int verificacao = 0, us = 0, ty = 0, alt=0;
-	char aux[30], username[30], pass[30], comando[256];
+	char aux[30], username[30], pass[30], comando[256], g;
 	
 	while(us < 1 || us > 3){
 		printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
@@ -349,53 +354,21 @@ void Usuarios(){
 			}
 			
 		}
-		//verificacao += system("lusrmgr.msc");
 		
 		if(verificacao != 0){
 				printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
-				verificacao += system("powershell.exe lusrmgr.msc");
 				
 			}else{
 				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 		}
 		
+		printf("- Deseja verificar no gerenciador ?(s/n)\n-> ");
+		fflush(stdin);
 		setbuf(stdin,NULL);
+		scanf("%g",&g);
+		if(g == 's' || g == 'S')
+			verificacao += system("lusrmgr.msc");
 	}
-}
-
-void Versao(){
-	FILE *fp;
-	int i=0,j=0;
-	char c='a';
-	char versao[20];
-	//versao = malloc(sizeof(char)*20);
-	for(i=0; i<20 ; i++){
-		versao[i] = ' ';
-	}
-	i = 0;
-	//num = malloc(sizeof(char)*10);
- 	if ((fp=fopen("Versao.txt","r"))==NULL ){
- 		printf ("Erro na abertura do arquivo\n");
- 	}else{
- 		while(c!='='){
- 			c= fgetc(fp);
-		 }
-		 while(c != '\n'){
-		 	
-		 	c = fgetc(fp);
-		 	if((c > 64 && c < 91)|| (c > 96 &&  c < 123) || c == ' ' || ( c > 47 && c < 58)){
-		 		versao[i] = c;
-		 		printf("%c",versao[i]);
-		 		i++;		
-			 }
-		 }
-		 printf("\n");
-		 versao[i] = '\n';
-		 
-	 }
-	 fclose(fp);
-	 fflush(fp);
-	 fflush(stdin);
 }
 
 int Arquitetura(){
@@ -439,33 +412,6 @@ int Arquitetura(){
 	 fflush(stdin);
 	 d = atoi(&arq[0]);
 	 return d;
-}
-
-void Ativacao(){
-	FILE *fa;
-	int i=0,j=0,d;
-	char c='a';
-	char ativacao[500];
-	
- 	if ((fa=fopen("Ativacao.txt","r"))==NULL ){
- 		printf ("Erro na abertura do arquivo\n");
- 	}else{
-		 
-		 for(j = 0 ; j <5; j++){
-		 	printf("- ");
-		 do{
-		 	c = fgetc(fa);
-		 	if((c > 64 && c < 91)|| (c > 96 &&  c < 123) || c == ' ' ||( c > 47 && c < 58) ){
-		 		ativacao[i] = c;
-		 		printf("%c",ativacao[i]);
-		 		i++;	
-			 }
-			 
-		 }while(c != '\n');
-		 printf("\n");
-		} 	 
-	} 
-	 fclose(fa);
 }
 
 void Bitlocker(){
@@ -518,7 +464,6 @@ void Bitlocker(){
 	//fflush(stdin);
 	//setbuf(stdin,NULL);
 	//scanf("%s",&AGR);
-	
 	
 	system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
 	system("manage-bde -protectors -add S: -pw");
