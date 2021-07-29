@@ -371,52 +371,9 @@ void Usuarios(){
 	}
 }
 
-int Arquitetura(){
-	FILE *fa;
-	int i=0,j=0,d;
-	char c='a';
-	char arquitetura[20];
-	char arq[2];
-	//arquitetura = malloc(sizeof(char)*20);
-	for(i=0; i<20 ; i++){
-		arquitetura[i] = ' ';
-	}
-	i = 0;
-	//num = malloc(sizeof(char)*10);
- 	if ((fa=fopen("Arquitetura.txt","r"))==NULL ){
- 		printf ("Erro na abertura do arquivo\n");
- 	}else{
- 		while(c!='='){
- 			c= fgetc(fa);
-		 }
-		 while(c != '\n'){
-		 	
-		 	c = fgetc(fa);
-		 	if((c > 64 && c < 91)|| (c > 96 &&  c < 123) || c == ' ' || ( c > 47 && c < 58)){
-		 		if( c > 47 && c < 58){
-		 			arq[j] = c;
-		 			j++;
-				 }
-		 		arquitetura[i] = c;
-		 		printf("%c",arquitetura[i]);
-		 		i++;		
-			 }
-		 }
-		 printf("\n");
-		 arquitetura[i] = '\n';
-		 	 
-	 }
-	 
-	 fclose(fa);
-	 fflush(fa);
-	 fflush(stdin);
-	 d = atoi(&arq[0]);
-	 return d;
-}
-
 void Bitlocker(){
 	int disco,volume;
-	char AGR[20], comando[100], aux[100];
+	char agr[20], comando[100], aux[100];
 	FILE *scripts;
 	
 	
@@ -459,15 +416,26 @@ void Bitlocker(){
 	system("powershell.exe diskpart /s Script02.txt");
 	
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	//printf("- Insira O Nome do AGR - \n");
-	//printf("- Nome >");
-	//fflush(stdin);
-	//setbuf(stdin,NULL);
-	//scanf("%s",&AGR);
-	
-	system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
+	printf("- Insira O Nome do AGR - \n");
+	printf("- Nome >");
+	fflush(stdin);
+	setbuf(stdin,NULL);
+	scanf("%s",&agr);
+	strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
+	sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
+	system(comando);
+	//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
 	system("manage-bde -protectors -add S: -pw");
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+}
+
+void Ate_Logo(){
+	printf("\n\n");
+	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+	printf("* * *                       ATE LOGO!                       * * *\n");
+	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+	system("pause");
+	exit(2);
 }
 
 int Sistema(){
@@ -477,11 +445,6 @@ int Sistema(){
 	printf("-\n");
 	printf("- - - - VERSAO : \n\n");
 	v += system("powershell.exe wmic os get caption /value /format:VALUE ");
-	fflush(stdin);
-	printf("- - - - ARQUITETURA : \n\n\n\n");
-	v += system("powershell.exe wmic computersystem get systemtype /value > Arquitetura.txt ");
-	arq = Arquitetura();
-	printf("\n\n\n");
 	fflush(stdin);
 	printf("- - - - ATIVACAO :\n\n");
 	v += system("powershell.exe cscript c:\\Windows\\System32\\slmgr.vbs /xpr ");
@@ -496,9 +459,7 @@ int Sistema(){
 		return arq;
 	}else{
 		printf("\n\n");
-		printf("* * * * * * * * * * *\n");
-		printf("*      ATE LOGO     *\n");
-		printf("* * * * * * * * * * *\n");
+		Ate_Logo();
 		system("pause");
 		exit(2);
 	}
@@ -562,10 +523,13 @@ void MostraOpcao(int i){
 			break;
 		}
 	}
-	printf("* * * * * * * * * * * * * * * * * *\n");
-	printf("      %s       \n",&opcao);
-	printf("* * * * * * * * * * * * * * * * * *\n");
+	
+	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
+	printf("* * *                       %s                       * * *\n",&opcao);
+	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 }
+
+
 
 int main (){
 	setlocale(LC_ALL,"Portuguese");
@@ -587,7 +551,8 @@ int main (){
 		switch(op){
 			/*Todos*/
 			case 1:{
-				//Usuario_Suporte();
+				Bitlocker();
+				Usuarios();
 				Politicas_Auditoria(1);
 				Netplwiz(1);
 				Log_Eventos(1);
@@ -658,43 +623,34 @@ int main (){
 			/*e-pass*/
 			case 12:{
 				MostraOpcao(op);
-				if(arq == 64){
-					system("start %CD%\\Drivers32\\ePass-Setup.exe");
-					system("copy %CD%\\Drivers32\\ePass.exe C:\\Users\\%username%\\Desktop");
-				}else{
-					system("start %CD%\\Drivers64\\ePass-Setup.exe");
-					system("copy %CD%\\Drivers64\\ePass.exe C:\\Users\\%username%\\Desktop");
-				}
+				
+					system("start %CD%\\Drivers\\ePass-Setup.exe");
+					system("copy %CD%\\Drivers\\ePass.exe C:\\Users\\%username%\\Desktop");
+				
 				break;
 			}
 			/*safenet*/
 			case 13:{
 				MostraOpcao(op);
-				if(arq == 64){
-					system("start %CD%\\Drivers32\\SafeNet.msi");
-				}else{
-					system("start %CD%\\Drivers64\\SafeNet.msi");
-				}
+				
+					system("start %CD%\\Drivers\\SafeNet.msi");
+				
 				break;
 			}
 			/*token admin*/
 			case 14:{
 				MostraOpcao(op);
-				if(arq == 64){
-					system("start %CD%\\Drivers32\\Token-Admin.exe");
-				}else{
-					system("start %CD%\\Drivers64\\Token-Admin.exe");
-				}
+				
+					system("start %CD%\\Drivers\\Token-Admin.exe");
+				
 				break;
 			}
 			/*AWP*/
 			case 15:{
 				MostraOpcao(op);
-				if(arq == 64){
-					system("start %CD%\\Drivers32\\AWP.exe");
-				}else{
-					system("start %CD%\\Drivers64\\AWP.exe");
-				}
+				
+					system("start %CD%\\Drivers\\AWP.exe");
+				
 				//Reiniciar Servico de Propagacao
 				system("powershell.exe net stop CertPropSvc && net start CertPropSvc");
 				break;
@@ -702,8 +658,6 @@ int main (){
 			/*SISAGR e Emissor*/
 			case 16:{
 				MostraOpcao(op);
-				//C:\Users\%username%\Desktop
-				//start %CD%\Parametrizacao\aa.txt
 				system("copy %CD%\\Dispositivos\\Emissor.jnlp C:\\Users\\%username%\\Desktop");
 				system("copy %CD%\\Dispositivos\\sisAGR.jnlp C:\\Users\\%username%\\Desktop");
 				break;
@@ -723,21 +677,12 @@ int main (){
 			/*OCS*/
 			case 19:{
 				MostraOpcao(op);
-				if(arq == 64){
-					system("start %CD%\\Drivers32\\OCS.exe");
-				}else{
-					system("start %CD%\\Drivers64\\OCS.exe");
-				}
+					system("start %CD%\\Drivers\\OCS.exe");
 				break;
 			}
 			
 			case 20:{
-				printf("\n\n");
-				printf("* * * * * * * * * * *\n");
-				printf("*      ATE LOGO     *\n");
-				printf("* * * * * * * * * * *\n");
-				system("pause");
-				exit(2);
+				Ate_Logo();
 			}
 		}
 		
@@ -748,14 +693,9 @@ int main (){
 		if(resp != 's' && resp != 'S'){
 			tru = 0;
 		}
-		
 	}
-	
 	system("cls");
-	printf("* * * * * * * * * * *\n");
-	printf("*      ATE LOGO     *\n");
-	printf("* * * * * * * * * * *\n");
-	system("pause");
+	Ate_Logo();
 	
 	return;
 }
