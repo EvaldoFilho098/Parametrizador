@@ -252,18 +252,106 @@ void Protecao_Tela(int op){
 		}
 }
 
-void Usuario_Suporte(){
+void Usuarios(){
 	
-	int verificacao = 0;
+	int verificacao = 0, us = 0, ty = 0, alt=0;
+	char aux[30], username[30], pass[30], comando[256];
 	
-	printf("- - - - - - - - - CRIANDO USUARIO SUPORTE - - - - - - - -\n");
-	verificacao += system("powershell.exe net user Suporte !Suporte321@ /fullname:\"Suporte\" /comment:\"Suporte\" /EXPIRES:NEVER /add");
-	verificacao += system("powershell.exe net localgroup administradores Suporte /add");
-	verificacao += system("WMIC USERACCOUNT WHERE \"name='Suporte'\" SET PasswordExpires=False");
+	printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
+	printf("- USUARIOS EXISTENTES:\n");
+	system("Net Users");
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+	printf("- Digite A Opcao Desejada:\n");
+	printf("- 1) Alterar Usuario Existente\n");
+	printf("- 2) Criar Novo Usuario\n");
+	printf("- > ");
+	while(us != 1 && us != 2){
+		setbuf(stdin,NULL);
+		scanf("%d",&us);
+	}
+	
+	
+	switch(us){
+		case 1:{
+			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+			printf("- Digite o nome de usuario que deseja alterar:\n- > ");
+			fflush(stdin);
+			setbuf(stdin,NULL);
+			scanf("%s",&aux);
+			strcpy(username,aux);
+			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+			printf("- 1) Mudar Senha\n");
+			printf("- 2) Aterar Prioridade\n");
+			printf("- > ");
+			while(alt != 1 && alt != 2){
+				setbuf(stdin,NULL);
+				scanf("%d",&alt);
+			}
+			if(alt == 1){	
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				printf("- Digite a nova senha:\n- > ");
+				fflush(stdin);
+				scanf("%s",&aux);
+				strcpy(pass,aux);
+				sprintf(comando,"powershell.exe net user %s %s",username,pass);
+				verificacao += system(comando);
+				//sprintf("powershell.exe WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
+				//verificacao += system(comando);
+			}else{
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				printf("- 1) Voltar à Conta Local\n- 2) Tornar Administrador\n- > ");
+				while(ty != 1 && ty != 2){
+					setbuf(stdin,NULL);
+					scanf("%d",&ty);
+				}
+				if(ty == 1){
+					sprintf(comando,"powershell.exe net localgroup administradores %s /delete",username);
+					verificacao += system(comando);
+					sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
+					verificacao += system(comando);
+				}else{
+					sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
+					verificacao += system(comando);
+				}
+			}
+			break;
+		}
+		case 2:{
+			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+			printf("- Digite o nome de usuario que deseja criar:\n- > ");
+			fflush(stdin);
+			scanf("%s",&aux);
+			strcpy(username,aux);
+			printf("- Digite a senha:\n- > ");
+			fflush(stdin);
+			scanf("%s",&aux);
+			strcpy(pass,aux);
+			sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
+			verificacao += system(comando);
+			sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
+			verificacao += system(comando);
+			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+			sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
+			system(comando);
+			printf("- 1) Conta Local\n- 2) Administrador\n- > ");
+			while(ty != 1 && ty != 2){
+				setbuf(stdin,NULL);
+				scanf("%d",&ty);
+			}
+			if(ty == 2 ){
+				sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
+				verificacao += system(comando);
+			}
+			break;
+		}
+		
+	}
 	//verificacao += system("lusrmgr.msc");
 	
 	if(verificacao != 0){
-			printf(" - - - VERIFICAR CONFIGURACOES CRIACAO DO USUARIO SUPORTE! - - - \n");
+			printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
+			verificacao += system("powershell.exe lusrmgr.msc");
+			
 		}else{
 			printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 	}
@@ -423,7 +511,7 @@ void Menu(){
 	printf(" * 5. Politicas de Senha             * 15. AWP                           *\n");
 	printf(" * 6. Horario da Internet            * 16. SISAGR e Emissor              *\n");
 	printf(" * 7. Protecao de Tela               * 17. Driver Camera                 *\n");
-	printf(" * 8. Usuario Suporte                * 18. Driver Leitor Biometrico      *\n");
+	printf(" * 8. Usuarios                       * 18. Driver Leitor Biometrico      *\n");
 	printf(" * 9. Criar Particao                 * 19. OCS                           *\n");
 	printf(" * 10. Reverter                      * 20. Sair                          *\n");
 	printf(" * ================================= * ================================= *\n");
@@ -492,7 +580,7 @@ int main (){
 		switch(op){
 			/*Todos*/
 			case 1:{
-				Usuario_Suporte();
+				//Usuario_Suporte();
 				Politicas_Auditoria(1);
 				Netplwiz(1);
 				Log_Eventos(1);
@@ -533,7 +621,7 @@ int main (){
 			}
 			/* Usuario Suporte */
 			case 8:{
-				Usuario_Suporte();
+				Usuarios();
 				break;
 			}
 			/* Criar Particao */
