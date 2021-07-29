@@ -435,11 +435,21 @@ void Usuarios(){
 
 void Bitlocker(){
 	int disco,volume, verifica,verifica2;
-	char agr[20], comando[100], aux[100];
+	char agr[20], comando[100], aux[100], opcao;
 	FILE *scripts;
 	
 	
 	printf("- - - - - - - - - - - - GERENCIANDO BITLOCKER - - - - - - - - - - - -\n\n");
+	setbuf(stdin,NULL);
+	fflush(stdin);
+	printf("-> Prosseguir? (s/n)\n>");
+	do{
+		scanf("%c",&opcao);
+	}while(opcao != 's' && opcao != 'S' && opcao != 'n' && opcao != 'N');
+	
+	if(opcao == 'n' || opcao == 'N')
+		return;
+		
 	do{	
 		verifica = 0;
 		//Mostra
@@ -632,8 +642,6 @@ void MostraOpcao(int i){
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 }
 
-
-
 int main (){
 	setlocale(LC_ALL,"Portuguese");
 	
@@ -663,6 +671,7 @@ int main (){
 					printf("-> Digite o numero das etapas que deseja pular [Ex: 1 5 6]\n-> ");
 					setbuf(stdin,NULL);
 					fflush(stdin);
+					i=0;
 					while( etapa != '\n'){
 						scanf("%c",&etapa);
 						if(etapa > 49 && etapa <= 57){
@@ -685,32 +694,40 @@ int main (){
 						}
 					}
 					
-					
-					for(j=0;j<k;j++){
+					system("pause");
+					for(j=0;j<l;j++){
 						switch(etapas[j]){
 							case 4:{
 								Politicas_Auditoria(1);
+								
 							}
 							case 5:{
 								Netplwiz(1);
+								
 							}
 							case 6:{
 								Log_Eventos(1);
+								
 							}
 							case 7:{
 								Politicas_Senha(1);
+								
 							}
 							case 8:{
 								Horario_Internet(1);
+								
 							}
 							case 9:{
 								Protecao_Tela(1);
+								
 							}
 							case 2:{
 								Usuarios();
+								
 							}
 							case 3:{
 								Bitlocker();
+								
 							}
 						}
 					}
