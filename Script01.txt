@@ -1,0 +1,4 @@
+select disk 0
+select volume 0
+shrink desired=2048
+create partition primary

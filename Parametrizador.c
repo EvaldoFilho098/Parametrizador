@@ -434,7 +434,7 @@ void Usuarios(){
 }
 
 void Bitlocker(){
-	int disco,volume;
+	int disco,volume, verificacao=0;
 	char agr[20], comando[100], aux[100];
 	FILE *scripts;
 	
@@ -487,9 +487,15 @@ void Bitlocker(){
 	strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
 	sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
 	strcat(comando,aux);
-	system(comando);
-	//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
-	system("manage-bde -protectors -add S: -pw");
+	do{
+		verificacao = 0;
+		verificacao += system(comando);
+		//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
+		verificacao += system("manage-bde -protectors -add S: -pw");
+		if( verificacao != 0)
+			printf("\n\n- - - - - - - - - - Tente Novamente! - - - - - - - - - - \n");
+	}while( verificacao != 0);
+	
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
 }
 
