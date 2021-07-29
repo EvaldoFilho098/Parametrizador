@@ -434,69 +434,97 @@ void Usuarios(){
 }
 
 void Bitlocker(){
-	int disco,volume, verificacao=0;
+	int disco,volume, verifica,verifica2;
 	char agr[20], comando[100], aux[100];
 	FILE *scripts;
 	
 	
 	printf("- - - - - - - - - - - - GERENCIANDO BITLOCKER - - - - - - - - - - - -\n\n");
-	//Mostra
+	do{	
+		verifica = 0;
+		//Mostra
+		system("powershell.exe diskpart /s listagem.txt");
+		
+		//Obtem
+		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+		printf("- Insira O Disco e o Volume A Serem Selecionados - \n");
+		fflush(stdin);
+		printf("- Disco > ");
+		scanf("%d",&disco);
+		printf("- Volume > ");
+		fflush(stdin);
+		scanf("%d",&volume);
+		
+		if ((scripts=fopen("Script01.txt","w"))==NULL ){
+	 		printf ("Erro na abertura do arquivo\n");
+	 	}else{
+			 fprintf(scripts,"select disk %d\nselect volume %d\nshrink desired=2048\ncreate partition primary",disco,volume);
+		} 
+		 fclose(scripts);
+		
+		verifica += system("powershell.exe diskpart /s Script01.txt");
+		if( verifica != 0){
+			//Sleep(5000);
+			printf("\n\n- - - - - - - - - - - - - - - - - Tente Novamente - - - - - - - - - - - - - - - - - -\n\n");
+		}
+	}while(verifica != 0);
+		
 	system("powershell.exe diskpart /s listagem.txt");
-	
-	//Obtem
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	printf("- Insira O Disco e o Volume A Serem Selecionados - \n");
-	fflush(stdin);
-	printf("- Disco > ");
-	scanf("%d",&disco);
-	printf("- Volume > ");
-	fflush(stdin);
-	scanf("%d",&volume);
-	
-	if ((scripts=fopen("Script01.txt","w"))==NULL ){
- 		printf ("Erro na abertura do arquivo\n");
- 	}else{
-		 fprintf(scripts,"select disk %d\nselect volume %d\nshrink desired=2048\ncreate partition primary",disco,volume);
-	} 
-	 fclose(scripts);
-	
-	system("powershell.exe diskpart /s Script01.txt");
-	system("powershell.exe diskpart /s listagem.txt");
-	
-	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	printf("- Insira O Volume A Ser Inicializado - \n");
-	printf("- Volume > ");
-	fflush(stdin);
-	scanf("%d",&volume);
-	
-	if ((scripts=fopen("Script02.txt","w"))==NULL ){
- 		printf ("Erro na abertura do arquivo\n");
- 	}else{
-		 fprintf(scripts,"select volume %d\nformat FS=NTFS QUICK COMPRESS\nassign letter=S\n",volume);
-	} 
-	fclose(scripts);
-	
-	system("powershell.exe diskpart /s Script02.txt");
-	
-	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	printf("- Insira O Nome do AGR - \n");
-	printf("- Nome >");
-	fflush(stdin);
-	setbuf(stdin,NULL);
-	scanf("%s",&agr);
-	strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
-	sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
-	strcat(comando,aux);
 	do{
-		verificacao = 0;
-		verificacao += system(comando);
-		//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
-		verificacao += system("manage-bde -protectors -add S: -pw");
-		if( verificacao != 0)
-			printf("\n\n- - - - - - - - - - Tente Novamente! - - - - - - - - - - \n");
-	}while( verificacao != 0);
+		verifica = 0;
+		printf("- Insira O Volume A Ser Inicializado - \n");
+		printf("- Volume > ");
+		fflush(stdin);
+		scanf("%d",&volume);
+		
+		if ((scripts=fopen("Script02.txt","w"))==NULL ){
+	 		printf ("Erro na abertura do arquivo\n");
+	 	}else{
+			 fprintf(scripts,"select volume %d\nformat FS=NTFS QUICK COMPRESS\nassign letter=S\n",volume);
+		} 
+		fclose(scripts);
+		
+		verifica += system("powershell.exe diskpart /s Script02.txt");
+		if( verifica != 0){
+			//Sleep(5000);
+			printf("\n\n- - - - - - - - - - - - - - - - - Tente Novamente - - - - - - - - - - - - - - - - - -\n\n");
+		}
+	}while(verifica != 0);
 	
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+	
+	do{
+		verifica = 0;
+		printf("- Insira O Nome do AGR - \n");
+		printf("- Nome >");
+		fflush(stdin);
+		setbuf(stdin,NULL);
+		scanf("%s",&agr);
+		strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
+		sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
+		strcat(comando,aux);
+		
+		verifica += system(comando);
+		if(verifica != 0){
+			//Sleep(5000);
+			printf("\n\n- - - - - - - - - - - - - - - - - Tente Novamente - - - - - - - - - - - - - - - - - -\n\n");
+		}
+	}while(verifica != 0);
+	
+	do{	
+		verifica2 = 0;
+		verifica2 += system("manage-bde -protectors -add S: -pw");
+		if(verifica2 != 0){
+			//Sleep(5000);
+			printf("\n\n- - - - - - - - - - - - - - - - - Tente Novamente - - - - - - - - - - - - - - - - - -\n\n");
+		}
+	}while(verifica2 != 0);
+		
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+	system("pause");
+	//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
+	
 }
 
 void Ate_Logo(int i){
