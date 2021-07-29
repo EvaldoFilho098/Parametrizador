@@ -463,6 +463,64 @@ void Ativacao(){
 	 fclose(fa);
 }
 
+void Bitlocker(){
+	int disco,volume;
+	char AGR[20], comando[100], aux[100];
+	FILE *scripts;
+	
+	
+	printf("- - - - - - - - - - - - GERENCIANDO BITLOCKER - - - - - - - - - - - -\n\n");
+	//Mostra
+	system("powershell.exe diskpart /s listagem.txt");
+	
+	//Obtem
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+	printf("- Insira O Disco E O Volume A Serem Selecionados - \n");
+	printf("- Disco > ");
+	fflush(stdin);
+	scanf("%d",&disco);
+	printf("- Volume > ");
+	fflush(stdin);
+	scanf("%d",&volume);
+	
+	if ((scripts=fopen("Script01.txt","w"))==NULL ){
+ 		printf ("Erro na abertura do arquivo\n");
+ 	}else{
+		 fprintf(scripts,"select disk %d\nselect volume %d\nshrink desired=2048\ncreate partition primary",disco,volume);
+	} 
+	 fclose(scripts);
+	
+	system("powershell.exe diskpart /s Script01.txt");
+	system("powershell.exe diskpart /s listagem.txt");
+	
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+	printf("- Insira O Volume A Ser Inicializado - \n");
+	printf("- Volume > ");
+	fflush(stdin);
+	scanf("%d",&volume);
+	
+	if ((scripts=fopen("Script02.txt","w"))==NULL ){
+ 		printf ("Erro na abertura do arquivo\n");
+ 	}else{
+		 fprintf(scripts,"select volume %d\nformat FS=NTFS QUICK COMPRESS\nassign letter=S\n",volume);
+	} 
+	fclose(scripts);
+	
+	system("powershell.exe diskpart /s Script02.txt");
+	
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+	//printf("- Insira O Nome do AGR - \n");
+	//printf("- Nome >");
+	//fflush(stdin);
+	//setbuf(stdin,NULL);
+	//scanf("%s",&AGR);
+	
+	
+	system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
+	system("manage-bde -protectors -add S: -pw");
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
+}
+
 int Sistema(){
 	int v = 0,arq = 0;
 	char opcao = 'a';
@@ -512,7 +570,7 @@ void Menu(){
 	printf(" * 6. Horario da Internet            * 16. SISAGR e Emissor              *\n");
 	printf(" * 7. Protecao de Tela               * 17. Driver Camera                 *\n");
 	printf(" * 8. Usuarios                       * 18. Driver Leitor Biometrico      *\n");
-	printf(" * 9. Criar Particao                 * 19. OCS                           *\n");
+	printf(" * 9. Particao e Bitlocker           * 19. OCS                           *\n");
 	printf(" * 10. Reverter                      * 20. Sair                          *\n");
 	printf(" * ================================= * ================================= *\n");
 	printf(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
@@ -626,7 +684,7 @@ int main (){
 			}
 			/* Criar Particao */
 			case 9:{
-				system("powershell.exe diskmgmt");
+				Bitlocker();
 				break;
 			}
 			/* Reverter */
