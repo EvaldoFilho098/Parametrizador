@@ -1,0 +1,13 @@
+[Unicode]
+Unicode=yes
+[System Access]
+MaximumPasswordAge = 30
+MinimumPasswordLength = 8
+PasswordComplexity = 1
+LockoutBadCount = 3
+ResetLockoutCount = 30
+LockoutDuration = 30
+ClearTextPassword = 0
+[Version]
+signature="$CHICAGO$"
+Revision=1
