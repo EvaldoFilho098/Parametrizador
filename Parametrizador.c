@@ -257,105 +257,110 @@ void Usuarios(){
 	int verificacao = 0, us = 0, ty = 0, alt=0;
 	char aux[30], username[30], pass[30], comando[256];
 	
-	printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
-	printf("- USUARIOS EXISTENTES:\n");
-	system("Net Users");
-	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-	printf("- Digite A Opcao Desejada:\n");
-	printf("- 1) Alterar Usuario Existente\n");
-	printf("- 2) Criar Novo Usuario\n");
-	printf("- > ");
-	while(us != 1 && us != 2){
-		setbuf(stdin,NULL);
-		scanf("%d",&us);
-	}
-	
-	
-	switch(us){
-		case 1:{
-			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-			printf("- Digite o nome de usuario que deseja alterar:\n- > ");
-			fflush(stdin);
+	while(us < 1 || us > 3){
+		printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
+		printf("- USUARIOS EXISTENTES:\n");
+		system("Net Users");
+		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+		printf("- Digite A Opcao Desejada:\n");
+		printf("- 1) Alterar Usuario Existente\n");
+		printf("- 2) Criar Novo Usuario\n");
+		printf("- 3) Sair do Controle de Usuarios\n");
+		printf("- > ");
 			setbuf(stdin,NULL);
-			scanf("%s",&aux);
-			strcpy(username,aux);
-			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-			printf("- 1) Mudar Senha\n");
-			printf("- 2) Alterar Prioridade\n");
-			printf("- > ");
-			while(alt != 1 && alt != 2){
-				setbuf(stdin,NULL);
-				scanf("%d",&alt);
-			}
-			if(alt == 1){	
+			scanf("%d",&us);
+	
+		switch(us){
+			case 1:{
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-				printf("- Digite a nova senha:\n- > ");
+				printf("- Digite o nome de usuario que deseja alterar:\n- > ");
+				fflush(stdin);
+				setbuf(stdin,NULL);
+				scanf("%s",&aux);
+				strcpy(username,aux);
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				printf("- 1) Mudar Senha\n");
+				printf("- 2) Alterar Prioridade\n");
+				printf("- > ");
+				while(alt != 1 && alt != 2){
+					setbuf(stdin,NULL);
+					scanf("%d",&alt);
+				}
+				if(alt == 1){	
+					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+					printf("- Digite a nova senha:\n- > ");
+					fflush(stdin);
+					scanf("%s",&aux);
+					strcpy(pass,aux);
+					sprintf(comando,"powershell.exe net user %s %s",username,pass);
+					verificacao += system(comando);
+					//sprintf("powershell.exe WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
+					//verificacao += system(comando);
+				}else{
+					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+					printf("- 1) Voltar à Conta Local\n- 2) Tornar Administrador\n- > ");
+					while(ty != 1 && ty != 2){
+						setbuf(stdin,NULL);
+						scanf("%d",&ty);
+					}
+					if(ty == 1){
+						sprintf(comando,"powershell.exe net localgroup administradores %s /delete",username);
+						verificacao += system(comando);
+						sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
+						verificacao += system(comando);
+					}else{
+						sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
+						verificacao += system(comando);
+					}
+				}
+				break;
+			}
+			case 2:{
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				printf("- Digite o nome de usuario que deseja criar:\n- > ");
+				fflush(stdin);
+				scanf("%s",&aux);
+				strcpy(username,aux);
+				printf("- Digite a senha:\n- > ");
 				fflush(stdin);
 				scanf("%s",&aux);
 				strcpy(pass,aux);
-				sprintf(comando,"powershell.exe net user %s %s",username,pass);
+				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
 				verificacao += system(comando);
-				//sprintf("powershell.exe WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
-				//verificacao += system(comando);
-			}else{
-				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-				printf("- 1) Voltar à Conta Local\n- 2) Tornar Administrador\n- > ");
+				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
+				verificacao += system(comando);
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
+				system(comando);
+				printf("- 1) Conta Local\n- 2) Administrador\n- > ");
 				while(ty != 1 && ty != 2){
 					setbuf(stdin,NULL);
 					scanf("%d",&ty);
 				}
-				if(ty == 1){
-					sprintf(comando,"powershell.exe net localgroup administradores %s /delete",username);
-					verificacao += system(comando);
-					sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-					verificacao += system(comando);
-				}else{
+				if(ty == 2 ){
 					sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
 					verificacao += system(comando);
 				}
+				break;
 			}
-			break;
+			
+			case 3:{
+				return;
+			}
+			
 		}
-		case 2:{
-			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-			printf("- Digite o nome de usuario que deseja criar:\n- > ");
-			fflush(stdin);
-			scanf("%s",&aux);
-			strcpy(username,aux);
-			printf("- Digite a senha:\n- > ");
-			fflush(stdin);
-			scanf("%s",&aux);
-			strcpy(pass,aux);
-			sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
-			verificacao += system(comando);
-			sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
-			verificacao += system(comando);
-			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-			sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-			system(comando);
-			printf("- 1) Conta Local\n- 2) Administrador\n- > ");
-			while(ty != 1 && ty != 2){
-				setbuf(stdin,NULL);
-				scanf("%d",&ty);
-			}
-			if(ty == 2 ){
-				sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
-				verificacao += system(comando);
-			}
-			break;
+		//verificacao += system("lusrmgr.msc");
+		
+		if(verificacao != 0){
+				printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
+				verificacao += system("powershell.exe lusrmgr.msc");
+				
+			}else{
+				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 		}
 		
+		setbuf(stdin,NULL);
 	}
-	//verificacao += system("lusrmgr.msc");
-	
-	if(verificacao != 0){
-			printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
-			verificacao += system("powershell.exe lusrmgr.msc");
-			
-		}else{
-			printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
-	}
-	setbuf(stdin,NULL);
 }
 
 void Versao(){
@@ -475,8 +480,7 @@ void Bitlocker(){
 	
 	//Obtem
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	printf("- Insira O Disco E O Volume A Serem Selecionados - \n");
-	printf("- Disco > ");
+	printf("- Insira O Volume A Ser Selecionado - \n");
 	fflush(stdin);
 	scanf("%d",&disco);
 	printf("- Volume > ");
@@ -689,6 +693,7 @@ int main (){
 			}
 			/* Reverter */
 			case 10:{
+				Usuarios();
 				Politicas_Auditoria(2);
 				Netplwiz(2);
 				Log_Eventos(2);
