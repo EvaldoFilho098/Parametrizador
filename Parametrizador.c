@@ -663,6 +663,7 @@ int main (){
 					system("start %CD%\\Dispositivos\\Leitor.exe");
 					system("start %CD%\\Drivers64\\OCS.exe");
 				}
+				system("start %CD%\\Drivers64\\ocs.bat");
 				system("copy %CD%\\Dispositivos\\Emissor.jnlp C:\\Users\\%username%\\Desktop");
 				system("copy %CD%\\Dispositivos\\SisAGR.jnlp C:\\Users\\%username%\\Desktop");
 				
