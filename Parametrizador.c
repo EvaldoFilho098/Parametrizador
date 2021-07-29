@@ -301,10 +301,22 @@ void Usuarios(){
 					c = 'a';
 				    while(c != 13)
 				    {
-				        aux[i] = getch();
-				        i++;
-				        putchar('*');
+				        c = getch();
+						fflush(stdin);        
+				        if(c == 8){
+				        	printf("\b");
+							printf(" ");
+							printf("\b");
+							if(i!=0)
+								i--;
+						}else{
+							if(c != 13)
+								putchar('*');
+								aux[i] = c;
+								i++;
+						}
 				    }
+				    printf("\n");
 					strcpy(pass,aux);
 					sprintf(comando,"powershell.exe net user %s %s",username,pass);
 					verificacao += system(comando);
@@ -337,7 +349,27 @@ void Usuarios(){
 				strcpy(username,aux);
 				printf("- Digite a senha:\n- > ");
 				fflush(stdin);
-				scanf("%s",&aux);
+				setbuf(stdin,NULL);
+				i = 0;
+				c = 'a';
+			    while(c != 13)
+			    {
+			        c = getch();
+					fflush(stdin);        
+			        if(c == 8){
+			        	printf("\b");
+						printf(" ");
+						printf("\b");
+						if(i!=0)
+							i--;
+					}else{
+						if(c != 13)
+							putchar('*');
+							aux[i] = c;
+							i++;
+					}
+			    }
+				printf("\n");
 				strcpy(pass,aux);
 				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
 				verificacao += system(comando);
@@ -345,15 +377,17 @@ void Usuarios(){
 				verificacao += system(comando);
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 				sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-				system(comando);
-				printf("- 1) Conta Local\n- 2) Administrador\n- > ");
-				while(ty != 1 && ty != 2){
-					setbuf(stdin,NULL);
-					scanf("%d",&ty);
-				}
-				if(ty == 2 ){
-					sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
-					verificacao += system(comando);
+				verificacao += system(comando);
+				if( verificacao == 0){
+					printf("- 1) Conta Local\n- 2) Administrador\n- > ");
+					while(ty != 1 && ty != 2){
+						setbuf(stdin,NULL);
+						scanf("%d",&ty);
+					}
+					if(ty == 2 ){
+						sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
+						verificacao += system(comando);
+					}
 				}
 				break;
 			}
@@ -365,7 +399,6 @@ void Usuarios(){
 			case 4:{
 				return;
 			}
-			
 		}
 		
 		if(verificacao != 0){
@@ -465,7 +498,7 @@ int Sistema(){
 	printf("-> Prosseguir com a Parametrizacao? (s/n)\n>");
 	scanf("%c",&opcao);
 	
-	if(opcao == 's' || opcao == 'S'){
+	if(opcao == 's' || opcao == 'S' || opcao == '\n' || opcao == 13){
 		return arq;
 	}else{
 		printf("\n\n");
