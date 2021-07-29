@@ -266,13 +266,16 @@ void Usuarios(){
 		system("cls");
 		printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
 		printf("- USUARIOS EXISTENTES:\n");
-		system("Net Users");
+		system("powershell.exe Get-CimInstance -Class Win32_UserAccount -Filter \\\"Status='OK'\\\"");
+		//system("Net Users");
 		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 		printf("- Digite A Opcao Desejada:\n");
+		printf("- 0) Sair do Controle de Usuarios\n");
 		printf("- 1) Alterar Usuario Existente\n");
 		printf("- 2) Criar Novo Usuario\n");
 		printf("- 3) Abrir Gerenciador\n");
-		printf("- 4) Sair do Controle de Usuarios\n");
+		printf("- 4) Visualizar Usuarios Administradores\n");
+		printf("- 5) Visualizar Usuarios Locais\n");
 		printf("- > ");
 			setbuf(stdin,NULL);
 			scanf("%d",&us);
@@ -376,8 +379,8 @@ void Usuarios(){
 				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
 				verificacao += system(comando);
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-				sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-				verificacao += system(comando);
+				//sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
+				//verificacao += system(comando);
 				if( verificacao == 0){
 					printf("- 1) Conta Local\n- 2) Administrador\n- > ");
 					while(ty != 1 && ty != 2){
@@ -397,6 +400,24 @@ void Usuarios(){
 			}
 			
 			case 4:{
+				system("cls");
+				printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
+				if(system("powershell.exe net localgroup Administradores") != 0){
+					system("powershell.exe net localgroup Administrators");
+				}
+				break;
+			}
+			
+			case 5:{
+				system("cls");
+				printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
+				if(system("powershell.exe net localgroup Usuários") != 0){
+					system("powershell.exe net localgroup Users");
+				}
+				break;
+			}
+			
+			case 0:{
 				return;
 			}
 		}
@@ -472,13 +493,16 @@ void Bitlocker(){
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
 }
 
-void Ate_Logo(){
+void Ate_Logo(int i){
 	printf("\n\n");
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 	printf("* * *                       ATE LOGO!                       * * *\n");
 	printf("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 	system("pause");
-	exit(2);
+	if(i==1){
+		exit(1);
+	}
+	return;
 }
 
 int Sistema(){
@@ -496,15 +520,16 @@ int Sistema(){
 	
 	setbuf(stdin,NULL);
 	printf("-> Prosseguir com a Parametrizacao? (s/n)\n>");
-	scanf("%c",&opcao);
+	do{
+		scanf("%c",&opcao);
+	}while(opcao != 's' && opcao != 'S' && opcao != 'n' & opcao != 'N');
+	
 	
 	if(opcao == 's' || opcao == 'S' || opcao == '\n' || opcao == 13){
 		return arq;
 	}else{
 		printf("\n\n");
-		Ate_Logo();
-		system("pause");
-		exit(2);
+		Ate_Logo(1);
 	}
 }
 
@@ -579,7 +604,7 @@ int main (){
 	setlocale(LC_ALL,"Portuguese");
 	
 	int arq,op = 0,tru=1, i=0,j=0,h=0,k=0,l=0,etapas[8], aux_2[8];
-	char resp,pe,etapa='a',aux[2];
+	char resp,pe,re,etapa='a',aux[2];
 	
 	arq = Sistema();
 	while(tru){
@@ -597,7 +622,9 @@ int main (){
 				printf("- Deseja pular alguma etapa? (s/n)\n-> ");
 				setbuf(stdin,NULL);
 				fflush(stdin);
-				scanf("%c",&pe);
+				do{
+					scanf("%c",&pe);
+				}while(pe != 's' && pe != 'S' && pe != 'n' && pe != 'N');
 				if(pe == 's' || pe == 'S'){
 					printf("-> Digite o numero das etapas que deseja pular [Ex: 1 5 6]\n-> ");
 					setbuf(stdin,NULL);
@@ -789,7 +816,18 @@ int main (){
 			}
 			
 			case 20:{
-				Ate_Logo();
+				printf("Deseja Reiniciar o Computador Para Efetuar as Mudanças? (s/n)\n-> ");
+				setbuf(stdin,NULL);
+				fflush(stdin);
+				do{
+					scanf("%c",&re);
+				}while(re != 's' && re != 'S' && re != 'n' && re != 'N');
+				
+				Ate_Logo(0);
+				if(re == 's' || re == 'S'){
+					system("powershell.exe shutdown /r");
+				}
+				exit(0);
 			}
 		}
 		
@@ -802,7 +840,7 @@ int main (){
 		}
 	}
 	system("cls");
-	Ate_Logo();
+	Ate_Logo(1);
 	
 	return;
 }

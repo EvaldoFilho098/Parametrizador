@@ -4,7 +4,7 @@ cls
 cls
 color 80
 date /t
-
+echo net localgroup Administradores /DOMAIN %USERDOMAIN%
 echo Computador: %computername%        Usuario: %username%
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -              Instalando Drivers                   -
