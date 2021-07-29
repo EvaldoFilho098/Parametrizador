@@ -534,9 +534,8 @@ void MostraOpcao(int i){
 int main (){
 	setlocale(LC_ALL,"Portuguese");
 	
-	int arq,op = 0,tru=1;
-	char resp;
-	
+	int arq,op = 0,tru=1, i=0,j=0,h=0,k=0,l=0,etapas[8], aux_2[8];
+	char resp,pe,etapa='a',aux[2];
 	
 	arq = Sistema();
 	while(tru){
@@ -551,14 +550,78 @@ int main (){
 		switch(op){
 			/*Todos*/
 			case 1:{
-				Bitlocker();
-				Usuarios();
-				Politicas_Auditoria(1);
-				Netplwiz(1);
-				Log_Eventos(1);
-				Politicas_Senha(1);
-				Horario_Internet(1);
-				Protecao_Tela(1);
+				printf("- Deseja pular alguma etapa? (s/n)\n-> ");
+				setbuf(stdin,NULL);
+				fflush(stdin);
+				scanf("%c",&pe);
+				if(pe == 's' || pe == 'S'){
+					printf("-> Digite o numero das etapas que deseja pular [Ex: 1 5 6]\n-> ");
+					setbuf(stdin,NULL);
+					fflush(stdin);
+					while( etapa != '\n'){
+						scanf("%c",&etapa);
+						if(etapa > 49 && etapa <= 57){
+							aux[0] = etapa;
+							aux_2[i] = atoi(aux);
+							i++;
+						}
+					}
+					
+					for(j=2;j<10;j++){
+						h=0;
+						for(k=0;k<i;k++){
+							if(aux_2[k] != j){
+								h++;
+							}
+							if(h == i){
+								etapas[l] = j;
+								l++;
+							}
+						}
+					}
+					
+					
+					for(j=0;j<k;j++){
+						switch(etapas[j]){
+							case 2:{
+								Politicas_Auditoria(1);
+							}
+							case 3:{
+								Netplwiz(1);
+							}
+							case 4:{
+								Log_Eventos(1);
+							}
+							case 5:{
+								Log_Eventos(1);
+							}
+							case 6:{
+								Politicas_Senha(1);
+							}
+							case 7:{
+								Horario_Internet(1);
+							}
+							case 8:{
+								Usuarios();
+							}
+							case 9:{
+								Bitlocker();
+							}
+						}
+					}
+					
+				}else{
+					Bitlocker();
+					Usuarios();
+					Politicas_Auditoria(1);
+					Netplwiz(1);
+					Log_Eventos(1);
+					Politicas_Senha(1);
+					Horario_Internet(1);
+					Protecao_Tela(1);
+				}
+				setbuf(stdin,NULL);
+				fflush(stdin);
 				break;
 			}
 			/*Auditorias*/
