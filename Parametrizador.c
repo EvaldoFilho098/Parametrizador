@@ -259,10 +259,11 @@ void Protecao_Tela(int op){
 
 void Usuarios(){
 	
-	int verificacao = 0, us = 0, ty = 0, alt=0;
-	char aux[30], username[30], pass[30], comando[256], g;
-	
-	while(us < 1 || us > 3){
+	int verificacao = 0, us = 0, ty = 0, alt=0, i = 0;
+	char aux[30], username[30], pass[30], comando[256], g , c='a';
+
+	while(1){
+		system("cls");
 		printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
 		printf("- USUARIOS EXISTENTES:\n");
 		system("Net Users");
@@ -270,7 +271,8 @@ void Usuarios(){
 		printf("- Digite A Opcao Desejada:\n");
 		printf("- 1) Alterar Usuario Existente\n");
 		printf("- 2) Criar Novo Usuario\n");
-		printf("- 3) Sair do Controle de Usuarios\n");
+		printf("- 3) Abrir Gerenciador\n");
+		printf("- 4) Sair do Controle de Usuarios\n");
 		printf("- > ");
 			setbuf(stdin,NULL);
 			scanf("%d",&us);
@@ -295,7 +297,14 @@ void Usuarios(){
 					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 					printf("- Digite a nova senha:\n- > ");
 					fflush(stdin);
-					scanf("%s",&aux);
+					i = 0;
+					c = 'a';
+				    while(c != 13)
+				    {
+				        aux[i] = getch();
+				        i++;
+				        putchar('*');
+				    }
 					strcpy(pass,aux);
 					sprintf(comando,"powershell.exe net user %s %s",username,pass);
 					verificacao += system(comando);
@@ -348,8 +357,12 @@ void Usuarios(){
 				}
 				break;
 			}
-			
 			case 3:{
+				verificacao += system("powershell.exe lusrmgr.msc");
+				break;
+			}
+			
+			case 4:{
 				return;
 			}
 			
@@ -362,12 +375,7 @@ void Usuarios(){
 				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 		}
 		
-		printf("- Deseja verificar no gerenciador ?(s/n)\n-> ");
-		fflush(stdin);
-		setbuf(stdin,NULL);
-		scanf("%g",&g);
-		if(g == 's' || g == 'S')
-			verificacao += system("lusrmgr.msc");
+		system("pause");
 	}
 }
 
@@ -424,6 +432,7 @@ void Bitlocker(){
 	scanf("%s",&agr);
 	strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
 	sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
+	strcat(comando,aux);
 	system(comando);
 	//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
 	system("manage-bde -protectors -add S: -pw");
@@ -474,19 +483,20 @@ void Menu(){
 	printf(" *          CONFIGURACOES            *           DRIVERS                 *\n");
 	printf(" * ================================= * ================================= *\n");
 	printf(" * 1. Todas                          * 11. Todos                         *\n");
-	printf(" * 2. Auditorias                     * 12. E-pass                        *\n");
-	printf(" * 3. Logon Interarivo(Netplwiz)     * 13. Safenet                       *\n");
-	printf(" * 4. Servico de Log de Eventos      * 14. Token Admin                   *\n");
-	printf(" * 5. Politicas de Senha             * 15. AWP                           *\n");
-	printf(" * 6. Horario da Internet            * 16. SISAGR e Emissor              *\n");
-	printf(" * 7. Protecao de Tela               * 17. Driver Camera                 *\n");
-	printf(" * 8. Usuarios                       * 18. Driver Leitor Biometrico      *\n");
-	printf(" * 9. Particao e Bitlocker           * 19. OCS                           *\n");
+	printf(" * 2. Particao e Bitlocker           * 12. E-pass                        *\n");
+	printf(" * 3. Usuarios                       * 13. Safenet                       *\n");
+	printf(" * 4. Auditorias                     * 14. Token Admin                   *\n");
+	printf(" * 5. Logon Interarivo(Netplwiz)     * 15. AWP                           *\n");
+	printf(" * 6. Servico de Log de Eventos      * 16. SISAGR e Emissor              *\n");
+	printf(" * 7. Politicas de Senha             * 17. Driver Camera                 *\n");
+	printf(" * 8. Horario da Internet            * 18. Driver Leitor Biometrico      *\n");
+	printf(" * 9. Protecao de Tela               * 19. OCS                           *\n");
 	printf(" * 10. Reverter                      * 20. Sair                          *\n");
 	printf(" * ================================= * ================================= *\n");
 	printf(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 }
 
+ 
 void MostraOpcao(int i){
 	char opcao[35];
 	i -= 11;
@@ -584,28 +594,28 @@ int main (){
 					
 					for(j=0;j<k;j++){
 						switch(etapas[j]){
-							case 2:{
+							case 4:{
 								Politicas_Auditoria(1);
 							}
-							case 3:{
+							case 5:{
 								Netplwiz(1);
 							}
-							case 4:{
-								Log_Eventos(1);
-							}
-							case 5:{
-								Log_Eventos(1);
-							}
 							case 6:{
-								Politicas_Senha(1);
+								Log_Eventos(1);
 							}
 							case 7:{
-								Horario_Internet(1);
+								Politicas_Senha(1);
 							}
 							case 8:{
-								Usuarios();
+								Horario_Internet(1);
 							}
 							case 9:{
+								Protecao_Tela(1);
+							}
+							case 2:{
+								Usuarios();
+							}
+							case 3:{
 								Bitlocker();
 							}
 						}
@@ -626,42 +636,42 @@ int main (){
 				break;
 			}
 			/*Auditorias*/
-			case 2:{
+			case 4:{
 				Politicas_Auditoria(0);
 				break;
 			}
 			/* Logon Interativo */
-			case 3:{
+			case 5:{
 				Netplwiz(0);
 				break;
 			}
 			/* Servico de Log */
-			case 4:{
+			case 6:{
 				Log_Eventos(0);
 				break;
 			}
 			/* Politicas de Senha*/
-			case 5:{
+			case 7:{
 				Politicas_Senha(0);
 				break;
 			}
 			/* Horario da Internet*/
-			case 6:{
+			case 8:{
 				Horario_Internet(0);
 				break;
 			}
 			/* Protecao de Tela*/
-			case 7:{
+			case 9:{
 				Protecao_Tela(0);
 				break;
 			}
 			/* Usuario Suporte */
-			case 8:{
+			case 3:{
 				Usuarios();
 				break;
 			}
 			/* Criar Particao */
-			case 9:{
+			case 2:{
 				Bitlocker();
 				break;
 			}
