@@ -328,8 +328,9 @@ void Usuarios(){
 				}else{
 					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 					printf("- 1) Voltar à Conta Local\n- 2) Tornar Administrador\n- > ");
+					setbuf(stdin,NULL);
+					fflush(stdin);
 					while(ty != 1 && ty != 2){
-						setbuf(stdin,NULL);
 						scanf("%d",&ty);
 					}
 					if(ty == 1){
@@ -374,7 +375,7 @@ void Usuarios(){
 			    }
 				printf("\n");
 				strcpy(pass,aux);
-				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
+				sprintf(comando,"powershell.exe net user %s %s /fullname:\\\"%s\\\" /comment:\\\"%s\\\" /EXPIRES:NEVER /add",username,pass,username,username);
 				verificacao += system(comando);
 				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
 				verificacao += system(comando);
