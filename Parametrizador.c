@@ -383,8 +383,9 @@ void Bitlocker(){
 	
 	//Obtem
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	printf("- Insira O Volume A Ser Selecionado - \n");
+	printf("- Insira O Disco e o Volume A Serem Selecionados - \n");
 	fflush(stdin);
+	printf("- Disco > ");
 	scanf("%d",&disco);
 	printf("- Volume > ");
 	fflush(stdin);
