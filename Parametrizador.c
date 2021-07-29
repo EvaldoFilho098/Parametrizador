@@ -281,7 +281,7 @@ void Usuarios(){
 			strcpy(username,aux);
 			printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 			printf("- 1) Mudar Senha\n");
-			printf("- 2) Aterar Prioridade\n");
+			printf("- 2) Alterar Prioridade\n");
 			printf("- > ");
 			while(alt != 1 && alt != 2){
 				setbuf(stdin,NULL);
@@ -633,7 +633,7 @@ int main (){
 			printf("-> Digite A Opcao: ");
 			fflush(stdin);
 			scanf("%d",&op);
-		}
+		} 
 		
 		switch(op){
 			/*Todos*/
@@ -674,7 +674,7 @@ int main (){
 			}
 			/* Protecao de Tela*/
 			case 7:{
-				Protecao_Tela(2);
+				Protecao_Tela(0);
 				break;
 			}
 			/* Usuario Suporte */
