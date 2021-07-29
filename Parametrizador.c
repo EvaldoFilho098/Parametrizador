@@ -699,33 +699,10 @@ int main (){
 			}
 			/*Todos*/
 			case 11:{
-				printf("- - - - - - - - INICIANDO INSTALACAO DE DRIVERS - - - - - - - -\n");
-				if(arq == 32){
-					system("start %CD%\\Drivers32\\");
-					system("start %CD%\\Drivers32\\ePass-Setup.exe");
-					system("copy %CD%\\Drivers32\\ePass.exe C:\\Users\\%username%\\Desktop");
-					system("start %CD%\\Drivers32\\SafeNet.msi");
-					system("start %CD%\\Drivers32\\Token-Admin.exe");
-					system("start %CD%\\Drivers32\\AWP.exe");
-					system("start %CD%\\Dispositivos\\Camera.exe");
-					system("start %CD%\\Dispositivos\\Leitor.exe");
-					system("start %CD%\\Drivers32\\OCS.exe");
-				}else{ 
-					system("start %CD%\\Drivers64\\");
-					system("start %CD%\\Drivers64\\ePass-Setup.exe");
-					system("copy %CD%\\Drivers64\\ePass.exe C:\\Users\\%username%\\Desktop");
-					system("start %CD%\\Drivers64\\SafeNet.msi");
-					system("start %CD%\\Drivers64\\Token-Admin.exe");
-					system("start %CD%\\Drivers64\\AWP.exe");
-					system("start %CD%\\Dispositivos\\Camera.exe");
-					system("start %CD%\\Dispositivos\\Leitor.exe");
-					system("start %CD%\\Drivers64\\OCS.exe");
-				}
-				system("start %CD%\\Drivers64\\ocs.bat");
-				system("copy %CD%\\Dispositivos\\Emissor.jnlp C:\\Users\\%username%\\Desktop");
-				system("copy %CD%\\Dispositivos\\SisAGR.jnlp C:\\Users\\%username%\\Desktop");
-				
-				printf("- - - - - - - - INSTALACAO DE DRIVERS COMPLETA - - - - - - - - -\n");
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				printf("- - - - - - - - REALIZANDO INSTALACAO DE DRIVERS  - - - - - - - -\n");
+				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				system("start Instalacao_Completa.bat");
 				break;
 			}
 			/*e-pass*/
