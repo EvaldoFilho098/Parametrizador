@@ -259,8 +259,9 @@ void Protecao_Tela(int op){
 
 void Usuarios(){
 	
-	int verificacao = 0, us = 0, ty = 0, alt=0, i = 0;
-	char aux[30], username[30], pass[30], comando[256], g , c='a';
+	int verificacao = 0, us = 0, ty = 0, alt=0, i = 0,j=0;
+	char aux[30], aux3[30], username[30], pass[30], comando[256], g , c='a';
+	char *aux2;
 
 	while(1){
 		system("cls");
@@ -315,13 +316,13 @@ void Usuarios(){
 						}else{
 							if(c != 13)
 								putchar('*');
-								aux[i] = c;
+								aux2[i] = c;
 								i++;
 						}
 				    }
 				    printf("\n");
-					strcpy(pass,aux);
-					sprintf(comando,"powershell.exe net user %s %s",username,pass);
+					//strcpy(pass,aux2);
+					sprintf(comando,"powershell.exe net user %s %s",username,aux2);
 					verificacao += system(comando);
 					//sprintf("powershell.exe WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
 					//verificacao += system(comando);
@@ -348,34 +349,52 @@ void Usuarios(){
 			case 2:{
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 				printf("- Digite o nome de usuario que deseja criar:\n- > ");
+				setbuf(stdin,NULL);
 				fflush(stdin);
 				scanf("%s",&aux);
 				strcpy(username,aux);
 				printf("- Digite a senha:\n- > ");
-				fflush(stdin);
 				setbuf(stdin,NULL);
+				fflush(stdin);
+				
+				//scanf("%s",&aux2);
+				//strcpy(username,aux);
+				///*
+				
 				i = 0;
 				c = 'a';
+				aux2 = malloc(sizeof(char)*30);
 			    while(c != 13)
-			    {
+			    {	
+			    	 
 			        c = getch();
-					fflush(stdin);        
+			        //printf("%c",c);
+			        //printf("\b");
+			        aux2[i] = c;
+					//setbuf(stdin,NULL);
+			    	//fflush(stdin);
+			    	
 			        if(c == 8){
-			        	printf("\b");
-						printf(" ");
-						printf("\b");
-						if(i!=0)
+			        	if(i>0){
+			        		printf("\b");
+							printf(" ");
+							printf("\b");
 							i--;
+						}
+			        	
 					}else{
-						if(c != 13)
+						if(c != 13){
 							putchar('*');
-							aux[i] = c;
 							i++;
+						}
 					}
 			    }
+			    //*/
 				printf("\n");
-				strcpy(pass,aux);
-				sprintf(comando,"powershell.exe net user %s %s /fullname:\\\"%s\\\" /comment:\\\"%s\\\" /EXPIRES:NEVER /add",username,pass,username,username);
+				//for(j=0;j<i;j++)
+				//	printf("%c",aux2[j]);
+					
+				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,aux2,username,username);
 				verificacao += system(comando);
 				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
 				verificacao += system(comando);
@@ -383,6 +402,7 @@ void Usuarios(){
 				//sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
 				//verificacao += system(comando);
 				if( verificacao == 0){
+					printf("- Defina o Grupo do Novo Usuario:\n");
 					printf("- 1) Conta Local\n- 2) Administrador\n- > ");
 					while(ty != 1 && ty != 2){
 						setbuf(stdin,NULL);
