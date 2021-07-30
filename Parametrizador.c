@@ -300,24 +300,28 @@ void Usuarios(){
 				if(alt == 1){	
 					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 					printf("- Digite a nova senha:\n- > ");
+					setbuf(stdin,NULL);
 					fflush(stdin);
 					i = 0;
 					c = 'a';
+				    aux2 = malloc(sizeof(char)*30);
 				    while(c != 13)
-				    {
+				    {	
+				    	 
 				        c = getch();
-						fflush(stdin);        
+				        aux2[i] = c;
 				        if(c == 8){
-				        	printf("\b");
-							printf(" ");
-							printf("\b");
-							if(i!=0)
+				        	if(i>0){
+				        		printf("\b");
+								printf(" ");
+								printf("\b");
 								i--;
+							}
 						}else{
-							if(c != 13)
+							if(c != 13){
 								putchar('*');
-								aux2[i] = c;
 								i++;
+							}
 						}
 				    }
 				    printf("\n");
@@ -356,11 +360,7 @@ void Usuarios(){
 				printf("- Digite a senha:\n- > ");
 				setbuf(stdin,NULL);
 				fflush(stdin);
-				
-				//scanf("%s",&aux2);
-				//strcpy(username,aux);
-				///*
-				
+
 				i = 0;
 				c = 'a';
 				aux2 = malloc(sizeof(char)*30);
@@ -368,12 +368,7 @@ void Usuarios(){
 			    {	
 			    	 
 			        c = getch();
-			        //printf("%c",c);
-			        //printf("\b");
 			        aux2[i] = c;
-					//setbuf(stdin,NULL);
-			    	//fflush(stdin);
-			    	
 			        if(c == 8){
 			        	if(i>0){
 			        		printf("\b");
@@ -381,7 +376,6 @@ void Usuarios(){
 							printf("\b");
 							i--;
 						}
-			        	
 					}else{
 						if(c != 13){
 							putchar('*');
@@ -389,11 +383,7 @@ void Usuarios(){
 						}
 					}
 			    }
-			    //*/
 				printf("\n");
-				//for(j=0;j<i;j++)
-				//	printf("%c",aux2[j]);
-					
 				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,aux2,username,username);
 				verificacao += system(comando);
 				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
