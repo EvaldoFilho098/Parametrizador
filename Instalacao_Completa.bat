@@ -68,19 +68,11 @@ echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
 pause
 start %CD%\Drivers\OCS.exe
-echo -
-echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo -                     OCS.bat                       -
-echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
-echo -
-pause
-start %CD%\Drivers\OCS.exe
 start %CD%\Drivers\ocs.bat
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -                   Concluido                       -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
-pause
 exit
 
 

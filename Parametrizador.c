@@ -2,6 +2,16 @@
 #include<stdlib.h>
 #include<string.h>
 #include<locale.h>
+#define TAM 30
+#define ESP 4
+
+void Espacos(int n){
+	int i=0;
+	for(i=0; i<n;i++){
+		printf("\n");
+	}
+	
+}
 
 void Politicas_Auditoria(int op){
 	
@@ -44,7 +54,9 @@ void Politicas_Auditoria(int op){
 		printf("- - - - - - VERIFICAR POLITICAS DE AUDITORIA! - - - - - -\n");
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+		
 	}
+	Espacos(ESP);
 }
 
 
@@ -76,6 +88,7 @@ void Netplwiz(int op){
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 	}
+	Espacos(ESP);
 }
 
 void Log_Eventos(int op){
@@ -114,6 +127,7 @@ void Log_Eventos(int op){
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 	}
+	Espacos(ESP);
 }
 
 void Politicas_Senha(int op){
@@ -172,6 +186,7 @@ void Politicas_Senha(int op){
 			}
 	 	}
 	}
+	Espacos(ESP);
 }
 
 void Horario_Internet(int op){
@@ -211,6 +226,7 @@ void Horario_Internet(int op){
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 	}
+	Espacos(ESP);
 }
 
 void Protecao_Tela(int op){
@@ -255,99 +271,103 @@ void Protecao_Tela(int op){
 		}else{
 			printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
 		}
+	Espacos(ESP);
+}
+
+int Menu_Usuarios(){
+	int x;
+	system("cls");
+	printf("- - - - - - - - - - - - - - MENU DE USUARIOS - - - - - - - - - - - - - - -\n");
+	printf("- USUARIOS EXISTENTES:\n");
+	system("powershell.exe Get-CimInstance -Class Win32_UserAccount -Filter \\\"Status='OK'\\\"");
+	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+	printf("- 0) Sair\n");
+	printf("- 1) Alterar Usuario Existente\n");
+	printf("- 2) Criar Usuario\n");
+	printf("- 3) Criar Usuario Suporte\n");
+	printf("- 4) Abrir Gerenciador\n");
+	printf("- 5) Mostrar Usuarios Administradores\n");
+	printf("- 6) Mostrar Usuarios Locais\n");
+	printf("- >");
+	fflush(stdin);
+	setbuf(stdin,NULL);
+	scanf("%d",&x);
+	fflush(stdin);
+	setbuf(stdin,NULL);
+	return x;
 }
 
 void Usuarios(){
-	
-	int verificacao = 0, us = 0, ty = 0, alt=0, i = 0,j=0;
-	char aux[30], aux3[30], username[30], pass[30], comando[256], g , c='a';
-	char *aux2;
+	//char comando[256];
+	//printf("- - - - - - - - - - - - - USUARIOS - - - - - - - - - - - - - - - -\n");
+	//sprintf(comando,"powershell.exe net user Suporte !Suporte321@ /fullname:\"Suporte\" /comment:\"Suporte\" /EXPIRES:NEVER /add");
+	//system(comando);
+	//sprintf(comando,"WMIC USERACCOUNT WHERE \"name='Suporte'\" SET PasswordExpires=False");
+	//system(comando);
+	//sprintf(comando,"powershell.exe net localgroup administradores Suporte /add");
+	//system(comando);
+	//sprintf(comando,"start Usuarios.bat %d",i);
+	//system(comando);
+	//printf("- - - - - - - - - - - - - COMPLETO! - - - - - - - - - - - - - - - -\n");
+		
+	int verificacao = 0,us = 0, ty = 0, alt=0,j=0;
+	char aux[TAM], aux3[TAM], username[TAM], comando[256], pass[TAM], g , c='a';
+
 
 	while(1){
-		system("cls");
-		printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
-		printf("- USUARIOS EXISTENTES:\n");
-		system("powershell.exe Get-CimInstance -Class Win32_UserAccount -Filter \\\"Status='OK'\\\"");
-		//system("Net Users");
-		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-		printf("- Digite A Opcao Desejada:\n");
-		printf("- 0) Sair do Controle de Usuarios\n");
-		printf("- 1) Alterar Usuario Existente\n");
-		printf("- 2) Criar Novo Usuario\n");
-		printf("- 3) Abrir Gerenciador\n");
-		printf("- 4) Visualizar Usuarios Administradores\n");
-		printf("- 5) Visualizar Usuarios Locais\n");
-		printf("- > ");
-			setbuf(stdin,NULL);
-			scanf("%d",&us);
-	
+		fflush(stdin);
+		setbuf(stdin,NULL);
+		us = Menu_Usuarios();
 		switch(us){
 			case 1:{
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
 				printf("- Digite o nome de usuario que deseja alterar:\n- > ");
-				fflush(stdin);
-				setbuf(stdin,NULL);
 				scanf("%s",&aux);
 				strcpy(username,aux);
-				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+				
+				printf("- - - - - - - - - - - - - - - %s - - - - - - - - - - - - - -\n",username);
 				printf("- 1) Mudar Senha\n");
 				printf("- 2) Alterar Prioridade\n");
 				printf("- > ");
+				setbuf(stdin,NULL);
+				fflush(stdin);
+				alt=0;
 				while(alt != 1 && alt != 2){
-					setbuf(stdin,NULL);
 					scanf("%d",&alt);
 				}
+				
 				if(alt == 1){	
-					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
+					printf("- - - - - - - - - - - - - - %s - - - - - - - - - - - - - - -\n",username);
 					printf("- Digite a nova senha:\n- > ");
 					setbuf(stdin,NULL);
 					fflush(stdin);
-					i = 0;
-					c = 'a';
-				    aux2 = malloc(sizeof(char)*30);
-				    while(c != 13)
-				    {	
-				    	 
-				        c = getch();
-				        aux2[i] = c;
-				        if(c == 8){
-				        	if(i>0){
-				        		printf("\b");
-								printf(" ");
-								printf("\b");
-								i--;
-							}
-						}else{
-							if(c != 13){
-								putchar('*');
-								i++;
-							}
-						}
-				    }
-				    printf("\n");
-					//strcpy(pass,aux2);
-					sprintf(comando,"powershell.exe net user %s %s",username,aux2);
+					scanf("%s",&pass);
+				    
+					sprintf(comando,"powershell.exe net user %s %s",username,pass);
 					verificacao += system(comando);
-					//sprintf("powershell.exe WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
-					//verificacao += system(comando);
 				}else{
-					printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-					printf("- 1) Voltar à Conta Local\n- 2) Tornar Administrador\n- > ");
+					printf("- - - - - - - - - - - - - - %s - - - - - - - - - - - - - - -\n",username);
+					printf("- 1) Voltar à Conta Local\n");
+					printf("- 2) Tornar Administrador\n");
+					printf("- > ");
 					setbuf(stdin,NULL);
 					fflush(stdin);
+					ty = 0 ;
 					while(ty != 1 && ty != 2){
 						scanf("%d",&ty);
 					}
+					
 					if(ty == 1){
 						sprintf(comando,"powershell.exe net localgroup administradores %s /delete",username);
 						verificacao += system(comando);
 						sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-						verificacao += system(comando);
+						if(!system(comando));
 					}else{
 						sprintf(comando,"powershell.exe net localgroup administradores %s /add",username);
 						verificacao += system(comando);
 					}
 				}
+				//system("cls");
 				break;
 			}
 			case 2:{
@@ -355,47 +375,27 @@ void Usuarios(){
 				printf("- Digite o nome de usuario que deseja criar:\n- > ");
 				setbuf(stdin,NULL);
 				fflush(stdin);
-				scanf("%s",&aux);
-				strcpy(username,aux);
+				scanf("%s",&aux3);
+				strcpy(username,aux3);
 				printf("- Digite a senha:\n- > ");
 				setbuf(stdin,NULL);
 				fflush(stdin);
-
-				i = 0;
-				c = 'a';
-				aux2 = malloc(sizeof(char)*30);
-			    while(c != 13)
-			    {	
-			    	 
-			        c = getch();
-			        aux2[i] = c;
-			        if(c == 8){
-			        	if(i>0){
-			        		printf("\b");
-							printf(" ");
-							printf("\b");
-							i--;
-						}
-					}else{
-						if(c != 13){
-							putchar('*');
-							i++;
-						}
-					}
-			    }
+				scanf("%s",&pass);
 				printf("\n");
-				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,aux2,username,username);
+				verificacao = 0;
+				sprintf(comando,"powershell.exe net user %s %s /fullname:\"%s\" /comment:\"%s\" /EXPIRES:NEVER /add",username,pass,username,username);
 				verificacao += system(comando);
 				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='%s'\" SET PasswordExpires=False",username);
 				verificacao += system(comando);
 				printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
-				//sprintf(comando,"powershell.exe net localgroup usuários %s /add",username);
-				//verificacao += system(comando);
+				
 				if( verificacao == 0){
 					printf("- Defina o Grupo do Novo Usuario:\n");
 					printf("- 1) Conta Local\n- 2) Administrador\n- > ");
+					setbuf(stdin,NULL);
+					fflush(stdin);
+					ty = 0;
 					while(ty != 1 && ty != 2){
-						setbuf(stdin,NULL);
 						scanf("%d",&ty);
 					}
 					if(ty == 2 ){
@@ -403,14 +403,27 @@ void Usuarios(){
 						verificacao += system(comando);
 					}
 				}
+				setbuf(stdin,NULL);
+				fflush(stdin);
 				break;
 			}
 			case 3:{
+				//system("cls");
+				printf("- - - - - - - - - - - - - CRIANDO USUARIO SUPORTE - - - - - - - - - - - - - - - -\n");
+				sprintf(comando,"powershell.exe net user Suporte !Suporte321@ /fullname:\"Suporte\" /comment:\"Suporte\" /EXPIRES:NEVER /add");
+				system(comando);
+				sprintf(comando,"WMIC USERACCOUNT WHERE \"name='Suporte'\" SET PasswordExpires=False");
+				system(comando);
+				sprintf(comando,"powershell.exe net localgroup administradores Suporte /add");
+				system(comando);
+				break;
+			}
+			case 4:{
 				verificacao += system("powershell.exe lusrmgr.msc");
 				break;
 			}
 			
-			case 4:{
+			case 5:{
 				system("cls");
 				printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
 				if(system("powershell.exe net localgroup Administradores") != 0){
@@ -419,7 +432,7 @@ void Usuarios(){
 				break;
 			}
 			
-			case 5:{
+			case 6:{
 				system("cls");
 				printf("- - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - \n");
 				if(system("powershell.exe net localgroup Usuários") != 0){
@@ -433,15 +446,17 @@ void Usuarios(){
 			}
 		}
 		
-		if(verificacao != 0){
-				printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
-				
-			}else{
-				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+		if( us >= 0 && us <=6){
+			if(verificacao != 0){
+					printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
+					
+				}else{
+					printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+			}
+			system("pause");
 		}
-		
-		system("pause");
 	}
+	Espacos(ESP);
 }
 
 void Bitlocker(){
@@ -464,7 +479,7 @@ void Bitlocker(){
 	do{	
 		verifica = 0;
 		//Mostra
-		system("powershell.exe diskpart /s listagem.txt");
+		system("powershell.exe diskpart /s Listagem.txt");
 		
 		//Obtem
 		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
@@ -490,7 +505,7 @@ void Bitlocker(){
 		}
 	}while(verifica != 0);
 		
-	system("powershell.exe diskpart /s listagem.txt");
+	system("powershell.exe diskpart /s Listagem.txt");
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
 	do{
 		verifica = 0;
@@ -522,8 +537,8 @@ void Bitlocker(){
 		fflush(stdin);
 		setbuf(stdin,NULL);
 		scanf("%s",&agr);
-		strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR - ");
-		sprintf(aux,"%s Chave de Recuperacao de Bitlocker\".txt",agr);
+		strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR ");
+		sprintf(aux,"%s - Chave de Recuperacao de Bitlocker 2021-2\".txt",agr);
 		strcat(comando,aux);
 		
 		verifica += system(comando);
@@ -543,9 +558,9 @@ void Bitlocker(){
 	}while(verifica2 != 0);
 		
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
-	system("pause");
+	//system("pause");
 	//system("manage-bde -on S: -recoverypassword > C:\\Users\\%username%\\Desktop\\\"AGR - Chave de Recuperacao de Bitlocker\".txt");
-	
+	Espacos(ESP);
 }
 
 void Ate_Logo(int i){
@@ -656,7 +671,7 @@ void MostraOpcao(int i){
 int main (){
 	setlocale(LC_ALL,"Portuguese");
 	
-	int arq,op = 0,tru=1, i=0,j=0,h=0,k=0,l=0,etapas[8], aux_2[8];
+	int arq,op = 0,tru=1, i=0,j=0,h=0,k=0,l=0,usr=0,etapas[8], aux_2[8];
 	char resp,pe,re,etapa='a',aux[2];
 	
 	arq = Sistema();
@@ -672,87 +687,15 @@ int main (){
 		switch(op){
 			/*Todos*/
 			case 1:{
-				printf("- Deseja pular alguma etapa? (s/n)\n-> ");
-				setbuf(stdin,NULL);
-				fflush(stdin);
-				do{
-					scanf("%c",&pe);
-				}while(pe != 's' && pe != 'S' && pe != 'n' && pe != 'N');
-				if(pe == 's' || pe == 'S'){
-					printf("-> Digite o numero das etapas que deseja pular [Ex: 1 5 6]\n-> ");
-					setbuf(stdin,NULL);
-					fflush(stdin);
-					i=0;
-					while( etapa != '\n'){
-						scanf("%c",&etapa);
-						if(etapa > 49 && etapa <= 57){
-							aux[0] = etapa;
-							aux_2[i] = atoi(aux);
-							i++;
-						}
-					}
-					
-					for(j=2;j<10;j++){
-						h=0;
-						for(k=0;k<i;k++){
-							if(aux_2[k] != j){
-								h++;
-							}
-							if(h == i){
-								etapas[l] = j;
-								l++;
-							}
-						}
-					}
-					
-					system("pause");
-					for(j=0;j<l;j++){
-						switch(etapas[j]){
-							case 4:{
-								Politicas_Auditoria(1);
-								
-							}
-							case 5:{
-								Netplwiz(1);
-								
-							}
-							case 6:{
-								Log_Eventos(1);
-								
-							}
-							case 7:{
-								Politicas_Senha(1);
-								
-							}
-							case 8:{
-								Horario_Internet(1);
-								
-							}
-							case 9:{
-								Protecao_Tela(1);
-								
-							}
-							case 2:{
-								Usuarios();
-								
-							}
-							case 3:{
-								Bitlocker();
-								
-							}
-						}
-					}
-					
-				}else{
-					Bitlocker();
-					Usuarios();
-					Politicas_Auditoria(1);
-					Netplwiz(1);
-					Log_Eventos(1);
-					Politicas_Senha(1);
-					Horario_Internet(1);
-					Protecao_Tela(1);
-				}
+				
+				Bitlocker();
+				Usuarios();
+				Politicas_Auditoria(1);
+				Netplwiz(1);
+				Log_Eventos(1);
+				Politicas_Senha(1);
+				Horario_Internet(1);
+				Protecao_Tela(1);
 				setbuf(stdin,NULL);
 				fflush(stdin);
 				break;
@@ -887,7 +830,7 @@ int main (){
 				
 				Ate_Logo(0);
 				if(re == 's' || re == 'S'){
-					system("powershell.exe shutdown /r");
+					system("powershell.exe shutdown /r /t 0");
 				}
 				exit(0);
 			}
