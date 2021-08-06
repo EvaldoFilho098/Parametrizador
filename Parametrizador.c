@@ -5,12 +5,13 @@
 #define TAM 30
 #define ESP 4
 
+int  Auditorias = 0, LEventos = 0, PTela = 0, HInternet = 0, Ntplwz = 0, PSenha = 0,inicio=1;
+
 void Espacos(int n){
 	int i=0;
 	for(i=0; i<n;i++){
 		printf("\n");
-	}
-	
+	}	
 }
 
 void Politicas_Auditoria(int op){
@@ -28,37 +29,37 @@ void Politicas_Auditoria(int op){
 	
 	if(op == 1){
 		printf("- - - - - - - - - POLITICAS DE AUDITORIA - - - - - - - - \n");
-		verificacao += system("auditpol.exe /set /category:\"{6997984A-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984F-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984D-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984E-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979850-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979849-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984C-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979848-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984B-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable");
+		verificacao += system("auditpol.exe /set /category:\"{6997984A-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984F-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984D-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984E-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979850-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979849-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984C-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979848-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984B-797A-11D9-BED3-505054503030}\" /success:enable /failure:enable > Log.txt");
 	}else if (op == 2){
 		printf("- - - - - DESFAZENDO POLITICAS DE AUDITORIA - - - - - - \n");
-		verificacao += system("auditpol.exe /set /category:\"{6997984A-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984F-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984D-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984E-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979850-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979849-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984C-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{69979848-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
-		verificacao +=system("auditpol.exe /set /category:\"{6997984B-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable");
+		verificacao += system("auditpol.exe /set /category:\"{6997984A-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984F-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984D-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984E-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979850-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979849-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984C-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{69979848-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
+		verificacao +=system("auditpol.exe /set /category:\"{6997984B-797A-11D9-BED3-505054503030}\" /success:disable /failure:disable > Log.txt");
 	}
 	
 	if(verificacao != 0){	
 		printf("- - - - - - VERIFICAR POLITICAS DE AUDITORIA! - - - - - -\n");
+		Auditorias = 0;
 	}else{
-		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
-		
+		printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+		Auditorias = 1;
 	}
 	Espacos(ESP);
 }
-
 
 void Netplwiz(int op){
 	
@@ -75,18 +76,20 @@ void Netplwiz(int op){
 	
 	if( op == 1){
 		printf("- - - CONFIGURACOES DE LOGON INTERATIVO(NETPLWIZ) - - - -\n");
-		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DontDisplayLastUserName -type DWORD  -value 1");
-		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DisableCAD -type DWORD  -value 0");
+		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DontDisplayLastUserName -type DWORD  -value 1 > Log.txt");
+		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DisableCAD -type DWORD  -value 0 > Log.txt");
 	}else if(op == 2){
 		printf("DESFAZENDO CONFIGURACOES DE LOGON INTERATIVO(NETPLWIZ)\n");
-		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DontDisplayLastUserName -type DWORD  -value 0");
-		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DisableCAD -type DWORD  -value 1");
+		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DontDisplayLastUserName -type DWORD  -value 0 > Log.txt");
+		verificacao += system("powershell.exe set-itemproperty -path HKLM:/Software/Microsoft/Windows/CurrentVersion/Policies/System/ -name DisableCAD -type DWORD  -value 1 > Log.txt");
 	}
 	
 	if(verificacao != 0){
 		printf("- - - VERIFICAR CONFIGURACOES DE LOGON INTERATIVO!  - - -\n");
+		Ntplwz = 0;
 	}else{
-		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+		printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+		Ntplwz = 1;
 	}
 	Espacos(ESP);
 }
@@ -106,26 +109,28 @@ void Log_Eventos(int op){
 	
 	if(op == 1){
 		printf("- - - - - - - CONFIGURACOES DE LOG DE EVENTOS - - - - - -\n");
-		verificacao += system("powershell.exe REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Security");
+		verificacao += system("powershell.exe REG ADD HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Security /f > Log.txt");
 		if(verificacao == 0){
-			verificacao += system("powershell.exe New-ItemProperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -Name MaxSize -PropertyType DWORD  -Value 20480 -Force");
-			verificacao += system("powershell.exe New-ItemProperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -Name AutoBackupLogFiles -PropertyType String -Value 1 -Force");
+			verificacao += system("powershell.exe New-ItemProperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -Name MaxSize -PropertyType DWORD  -Value 20480 -Force > Log.txt");
+			verificacao += system("powershell.exe New-ItemProperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -Name AutoBackupLogFiles -PropertyType String -Value 1 -Force > Log.txt");
 		}else{
 			verificacao = 0;
-			verificacao += system("powershell.exe set-itemproperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -name MaxSize -type DWORD  -value 20480 -Force");
-			verificacao += system("powershell.exe set-itemproperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -name AutoBackupLogFiles -value 1 -Force");
+			verificacao += system("powershell.exe set-itemproperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -name MaxSize -type DWORD  -value 20480 -Force /f > Log.txt");
+			verificacao += system("powershell.exe set-itemproperty -path HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security\\ -name AutoBackupLogFiles -value 1 -Force /f > Log.txt");
 		}
 	}else if( op == 2){
 		printf("- - -  DESFAZENDO CONFIGURACOES DE LOG DE EVENTOS - - - -\n");
-		verificacao += system("powershell.exe REG DELETE HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Security");
+		verificacao += system("powershell.exe REG DELETE HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Security /f > Log.txt");
 	}	
 	
-	verificacao += system("gpupdate /force /target:computer");
+	verificacao += system("gpupdate /force /target:computer > Log.txt");
 	if(verificacao != 0){
 		
 		printf("- VERIFICAR CONFIGURACOES DE SERVICO DE LOG DE EVENTOS! -\n");
+		LEventos = 0;
 	}else{
-		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+		printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+		LEventos = 1;
 	}
 	Espacos(ESP);
 }
@@ -151,18 +156,21 @@ void Politicas_Senha(int op){
 	 		printf ("Erro na abertura do arquivo\n");
 	 		
 	 		printf("- - VERIFICAR CONFIGURACOES DE POLITICA DE SENHAS! - - - \n");
+	 		PSenha = 0;
 	 	}else{
-	 		printf("Iniciando...\n");
+	 		//printf("Iniciando...\n");
 	 		fread(config, sizeof(char), 8700,fp);
 	 		fwrite(config, sizeof(char), 8700,fc);
 	 		fclose(fp);
 	 		fclose(fc);
-	 		verificacao += system("powershell.exe secedit.exe /configure /db \\securitynew.sdb /cfg C:\\secconfig.cfg /areas SECURITYPOLICY");
+	 		verificacao += system("powershell.exe secedit.exe /configure /db \\securitynew.sdb /cfg C:\\secconfig.cfg /areas SECURITYPOLICY > Log.txt");
 	 		if(verificacao != 0){
 	 			
 				printf("- - -VERIFICAR CONFIGURACOES DE POLITICA DE SENHAS!- - - \n");
+				PSenha = 0;
 			}else{
-				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+				printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+				PSenha = 1;
 			}
 	 	}
  	}else if(op == 2){
@@ -171,18 +179,21 @@ void Politicas_Senha(int op){
 	 		printf ("Erro na abertura do arquivo\n");
 	 		
 	 		printf("- - VERIFICAR CONFIGURACOES DE POLITICA DE SENHAS! - - - \n");
+	 		PSenha = 0;
 	 	}else{
-	 		printf("Iniciando...\n");
+	 		//printf("Iniciando...\n");
 	 		fread(config, sizeof(char), 8700,fp);
 	 		fwrite(config, sizeof(char), 8700,fc);
 	 		fclose(fp);
 	 		fclose(fc);
-	 		verificacao += system("powershell.exe secedit.exe /configure /db \\securitynew.sdb /cfg C:\\secconfig.cfg /areas SECURITYPOLICY");
+	 		verificacao += system("powershell.exe secedit.exe /configure /db \\securitynew.sdb /cfg C:\\secconfig.cfg /areas SECURITYPOLICY > Log.txt");
 	 		if(verificacao != 0){
 	 			
 				printf("- - -VERIFICAR CONFIGURACOES DE POLITICA DE SENHAS!- - - \n");
+				PSenha = 0;
 			}else{
-				printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+				printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+				PSenha = 1;
 			}
 	 	}
 	}
@@ -191,7 +202,7 @@ void Politicas_Senha(int op){
 
 void Horario_Internet(int op){
 	
-	int verificacao = 0,t=0;
+	int verificacao = 0,t=0, sinc=0;
 	
 	if( op == 0){
 		printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
@@ -204,27 +215,25 @@ void Horario_Internet(int op){
 	
 	if(op == 1){
 		printf("- - - - - CONFIGURACOES DE HORARIO DA INTERNET - - - - - \n");
-		verificacao += system("powershell.exe REG IMPORT Servidores.txt");
-		verificacao += system("powershell.exe w32tm /config /syncfromflags:manual /manualpeerlist:ntp1.acsoluti.com.br");
+		verificacao += system("powershell.exe REG IMPORT Servidores.txt > Log.txt");
+		verificacao += system("powershell.exe w32tm /config /syncfromflags:manual /manualpeerlist:ntp1.acsoluti.com.br > Log.txt");
 	}else{
 		printf("- -  DESFAZENDO CONFIGURACOES DE HORARIO DA INTERNET - - \n");
-		verificacao += system("powershell.exe w32tm /config /syncfromflags:manual /manualpeerlist:time.windows.com");
+		verificacao += system("powershell.exe w32tm /config /syncfromflags:manual /manualpeerlist:time.windows.com > Log.txt");
 	}
-	verificacao += system("w32tm /config /update");
+	verificacao += system("w32tm /config /update > Log.txt");
 	t = 1;
 	do{
-		verificacao += system("w32tm /resync");
-		if (verificacao == 0)
-			t=3;
-		else
-			t++;
-		
-	}while(t != 3);
+		sinc = system("w32tm /resync > Log.txt");
+		t++;
+	}while(t != 3 && sinc != 0);
 	
 	if(verificacao != 0){
 		printf(" - - VERIFICAR CONFIGURACOES DE HORARIO DA INTERNET! - - \n");
+		HInternet = 0;
 	}else{
 		printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+		HInternet = 1;
 	}
 	Espacos(ESP);
 }
@@ -244,39 +253,81 @@ void Protecao_Tela(int op){
 		
 	if(op == 1){
 		printf("\n- - - - - - CONFIGURACOES DE PROTECAO DE TELA - - - - - -\n");
-		verificacao += system("powershell.exe REG ADD HKCU\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop");
+		verificacao += system("powershell.exe REG ADD HKCU\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop /f > Log.txt");
 		if(verificacao != 0){
-			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveActive -type String -value 1");
-			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveTimeOut -type String -value 120");
-			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaverIsSecure -type String -value 1");
-			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name SCRNSAVE.EXE  -type String -value C:\\Windows\\System32\\scrnsave.scr");
+			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveActive -type String -value 1 > Log.txt");
+			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveTimeOut -type String -value 120 > Log.txt");
+			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaverIsSecure -type String -value 1 > Log.txt");
+			verificacao += system("powershell.exe new-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name SCRNSAVE.EXE  -type String -value C:\\Windows\\System32\\scrnsave.scr > Log.txt ");
 		}else{
 			verificacao = 0;
-			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveActive -type String -value 1");
-			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveTimeOut -type String -value 120");
-			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaverIsSecure -type String -value 1");
-			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name SCRNSAVE.EXE  -type String -value C:\\Windows\\System32\\scrnsave.scr");
+			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveActive -type String -value 1 > Log.txt");
+			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaveTimeOut -type String -value 120 > Log.txt");
+			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name ScreenSaverIsSecure -type String -value 1 > Log.txt");
+			verificacao += system("powershell.exe set-itemproperty -path HKCU:\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop\\ -name SCRNSAVE.EXE  -type String -value C:\\Windows\\System32\\scrnsave.scr > Log.txt");		
 		}
 		
 	}else if(op == 2){
 		
 		printf("- - - DESFAZENDO CONFIGURACOES DE PROTECAO DE TELA - - - \n");
-		verificacao += system("powershell.exe REG DELETE HKCU\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop");
+		verificacao += system("powershell.exe REG DELETE HKCU\\Software\\Policies\\Microsoft\\Windows\\'Control Panel'\\Desktop /f > Log.txt");
 	}
 	
-	verificacao += system("gpupdate /force /target:computer");
+	verificacao += system("gpupdate /force /target:computer > Log.txt");
 	
 	if(verificacao != 0){
 			printf("- - - VERIFICAR CONFIGURACOES DE PROTECAO DE TELA! - - - \n");
+			PTela = 0;
 		}else{
-			printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+			printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
+			PTela = 1;
 		}
 	Espacos(ESP);
+}
+
+void Exibicao(int completo){
+	
+	if(completo == 1){
+		printf("\n- - - - - - - - - - - PARAMETRIZACAO COMPLETAMETNE REALIZADA! - - - - - - - - - - - - \n\n");
+	}else{
+		if(completo == 0){
+			printf("\n- - - - - - - - - PARAMETRIZACAO FOI REALIZADA MAS APRESENTA ERROS - - - - - - - - - \n");
+			if(Auditorias == 0){
+				printf("- > POLITICAS DE AUDITORIA\n");
+			}
+			if(Ntplwz == 0){
+				printf("- > NETPLWIZ\n");
+			}
+			if(LEventos == 0){
+				printf("- > LOG DE EVENTOS\n");
+			}
+			if(PSenha == 0){
+				printf("- > POLITICAS DE SENHA\n");
+			}
+			if(HInternet == 0){
+				printf("- > HORARIO DE INTERNET\n");
+			}
+			if( PTela == 0){
+				printf("- > PROTECAO DE TELA\n");
+			}
+			printf("\n- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n");
+		}
+	}
+}
+
+int Completo(){
+	
+	if(Auditorias ==1 && LEventos == 1 && PTela == 1 && HInternet == 1 && Ntplwz == 1 && PSenha == 1){
+		return 1;
+	}else{
+		return 0;
+	}
 }
 
 int Menu_Usuarios(){
 	int x;
 	system("cls");
+	
 	printf("- - - - - - - - - - - - - - MENU DE USUARIOS - - - - - - - - - - - - - - -\n");
 	printf("- USUARIOS EXISTENTES:\n");
 	system("powershell.exe Get-CimInstance -Class Win32_UserAccount -Filter \\\"Status='OK'\\\"");
@@ -308,11 +359,20 @@ void Usuarios(){
 	//system(comando);
 	//sprintf(comando,"start Usuarios.bat %d",i);
 	//system(comando);
-	//printf("- - - - - - - - - - - - - COMPLETO! - - - - - - - - - - - - - - - -\n");
+	printf("- - - - - - - - - - - - - CONTROLE DE USUARIOS - - - - - - - - - - - - - - - -\n");
 		
 	int verificacao = 0,us = 0, ty = 0, alt=0,j=0;
-	char aux[TAM], aux3[TAM], username[TAM], comando[256], pass[TAM], g , c='a';
-
+	char opcao, aux[TAM], aux3[TAM], username[TAM], comando[256], pass[TAM], g , c='a';
+	
+	setbuf(stdin,NULL);
+	fflush(stdin);
+	printf("-> Prosseguir? (s/n)\n>");
+	do{
+		scanf("%c",&opcao);
+	}while(opcao != 's' && opcao != 'S' && opcao != 'n' && opcao != 'N');
+	
+	if(opcao == 'n' || opcao == 'N')
+		return;
 
 	while(1){
 		fflush(stdin);
@@ -451,7 +511,7 @@ void Usuarios(){
 					printf(" - - - VERIFICAR CONFIGURACOES DE USUARIO - - - -  - - - \n");
 					
 				}else{
-					printf("- - - - - - - -- - - - COMPLETO ! - - - - - - - - - - - -\n");
+					printf("- - - - - - - - - - - - COMPLETO ! - - - - - - - - - - - -\n");
 			}
 			system("pause");
 		}
@@ -463,7 +523,6 @@ void Bitlocker(){
 	int disco,volume, verifica,verifica2;
 	char agr[20], comando[100], aux[100], opcao;
 	FILE *scripts;
-	
 	
 	printf("- - - - - - - - - - - - GERENCIANDO BITLOCKER - - - - - - - - - - - -\n\n");
 	setbuf(stdin,NULL);
@@ -603,8 +662,13 @@ int Sistema(){
 	}
 }
 
-void Menu(){	
+void Menu(){
+	int completo;	
 	system("cls");
+	
+	if(inicio == 0)
+		Exibicao(Completo());
+		
 	printf(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 	printf(" *                             PARAMETRIZACAO                            *\n");
 	printf(" *                                                                       *\n");
@@ -624,7 +688,6 @@ void Menu(){
 	printf(" * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n");
 }
 
- 
 void MostraOpcao(int i){
 	char opcao[35];
 	i -= 11;
@@ -696,6 +759,19 @@ int main (){
 				Politicas_Senha(1);
 				Horario_Internet(1);
 				Protecao_Tela(1);
+				inicio = 0;
+				
+				printf("Deseja Reiniciar o Computador Para Efetuar as Mudanças? (s/n)\n-> ");
+				setbuf(stdin,NULL);
+				fflush(stdin);
+				do{
+					scanf("%c",&re);
+				}while(re != 's' && re != 'S' && re != 'n' && re != 'N');
+				
+				if(re == 's' || re == 'S'){
+					Ate_Logo(0);
+					system("powershell.exe shutdown /r /t 0");
+				}
 				setbuf(stdin,NULL);
 				fflush(stdin);
 				break;
