@@ -49,6 +49,27 @@ copy %CD%\Dispositivos\Emissor.jnlp C:\Users\%username%\Desktop
 copy %CD%\Dispositivos\SisAGR.jnlp C:\Users\%username%\Desktop
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -     			    Emissor AC META                  -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -
+pause
+start %CD%\Drivers\Emissor_ACMETA.application
+echo -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -         Cadastro Biometrico AC META               -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -
+pause
+start %CD%\Drivers\Cadastro_Biometrico.application
+echo -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -        			 GEDAR AC META                   -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -
+pause
+start %CD%\Drivers\Gedar.application
+echo -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -                      Camera                       -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
