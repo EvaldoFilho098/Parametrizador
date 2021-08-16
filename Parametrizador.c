@@ -522,6 +522,8 @@ void Usuarios(){
 void Bitlocker(){
 	int disco,volume, verifica,verifica2;
 	char agr[20], comando[100], aux[100], opcao;
+	char *desktop;
+	desktop = (char*)malloc(sizeof(char)*50);
 	FILE *scripts;
 	
 	printf("- - - - - - - - - - - - GERENCIANDO BITLOCKER - - - - - - - - - - - -\n\n");
@@ -555,7 +557,7 @@ void Bitlocker(){
 	 	}else{
 			 fprintf(scripts,"select disk %d\nselect volume %d\nshrink desired=2048\ncreate partition primary",disco,volume);
 		} 
-		 fclose(scripts);
+		fclose(scripts);
 		
 		verifica += system("powershell.exe diskpart /s Script01.txt");
 		if( verifica != 0){
@@ -589,6 +591,10 @@ void Bitlocker(){
 	
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n\n");
 	
+   	desktop = getenv("USERPROFILE");
+   	strcat(desktop,"\\Desktop");
+   	printf("Desktop : %s\n",desktop );
+   	
 	do{
 		verifica = 0;
 		printf("- Insira O Nome do AGR - \n");
@@ -646,7 +652,7 @@ int Sistema(){
 	v += system("powershell.exe cscript c:\\Windows\\System32\\slmgr.vbs /xpr ");
 	fflush(stdin);
 	printf("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - \n");
-	
+	//system("changepk.exe /productkey VK7JG-NPHTM-C97JM-9MPGT-3V66T");
 	setbuf(stdin,NULL);
 	printf("-> Prosseguir com a Parametrizacao? (s/n)\n>");
 	do{

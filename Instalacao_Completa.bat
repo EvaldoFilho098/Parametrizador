@@ -38,22 +38,22 @@ echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
 pause
 start %CD%\Drivers\ePass-Setup.exe
-copy %CD%\Drivers\ePass.exe C:\Users\%username%\Desktop
+copy %CD%\Drivers\ePass.exe %CSIDL_DESKTOPDIRECTORY%
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -                  SisAGR e Emissor                 -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
 pause
-copy %CD%\Dispositivos\Emissor.jnlp C:\Users\%username%\Desktop
-copy %CD%\Dispositivos\SisAGR.jnlp C:\Users\%username%\Desktop
+copy %CD%\Dispositivos\Emissor.jnlp %CSIDL_DESKTOPDIRECTORY%
+copy %CD%\Dispositivos\SisAGR.jnlp %CSIDL_DESKTOPDIRECTORY%
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -     			    Emissor AC META                  -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
 pause
-start %CD%\Drivers\Emissor_ACMETA.application
+copy %CD%\Drivers\Emissor_ACMETA.application %CSIDL_DESKTOPDIRECTORY%
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -         Cadastro Biometrico AC META               -
@@ -89,6 +89,12 @@ echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
 echo -
 pause
 start %CD%\Drivers\OCS.exe
+echo -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -                       OCS.bat                     -
+echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
+echo -
+pause
 start %CD%\Drivers\ocs.bat
 echo -
 echo - - - - - - - - - - - - - - - - - - - - - - - - - - -
