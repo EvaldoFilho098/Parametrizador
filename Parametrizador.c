@@ -521,7 +521,7 @@ void Usuarios(){
 
 void Bitlocker(){
 	int disco,volume, verifica,verifica2;
-	char agr[20], comando[100], aux[100], opcao;
+	char agr[20], comando[256], aux[256], opcao;
 	char *desktop;
 	desktop = (char*)malloc(sizeof(char)*50);
 	FILE *scripts;
@@ -602,7 +602,7 @@ void Bitlocker(){
 		fflush(stdin);
 		setbuf(stdin,NULL);
 		scanf("%s",&agr);
-		strcpy(comando,"manage-bde -on S: -recoverypassword > C:\\Users\\\%username\%\\Desktop\\\"AGR ");
+		sprintf(comando,"manage-bde -on S: -recoverypassword > %s\\\"AGR ",desktop);
 		sprintf(aux,"%s - Chave de Recuperacao de Bitlocker 2021-2\".txt",agr);
 		strcat(comando,aux);
 		
